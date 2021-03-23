@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // model
-import 'package:youtube_app/main_model.dart';
+import 'package:youtube_app/presentation/main/main_model.dart';
 
 // page
-import 'book_list_page.dart';
+import '../book_list/book_list_page.dart';
 
 void main() async {
   runApp(MyApp());
