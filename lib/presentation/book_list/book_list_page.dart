@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:youtube_app/domain/book.dart';
 import 'package:youtube_app/presentation/add_book/add_book_page.dart';
 
 import 'package:youtube_app/presentation/book_list/book_list_model.dart';
@@ -36,6 +37,25 @@ class BookListPage extends StatelessWidget {
                       model.fetchBooks();
                     },
                   ),
+                  onLongPress: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('${book.title}を削除しますか'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('OK'),
+                              onPressed: () async {
+                                Navigator.of(context).pop();
+                                await deleteBook(context, model, book);
+                              },
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  },
                 ),
               )
               .toList();
@@ -59,6 +79,36 @@ class BookListPage extends StatelessWidget {
           );
         }),
       ),
+    );
+  }
+
+  Future deleteBook(
+      BuildContext context, BookListModel model, Book book) async {
+    try {
+      await model.deleteBook(book);
+      await _showDialog(context, '削除しました');
+      await model.fetchBooks();
+    } catch (e) {
+      await _showDialog(context, e.toString());
+    }
+  }
+
+  Future _showDialog(BuildContext context, String title) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
     );
   }
 }
