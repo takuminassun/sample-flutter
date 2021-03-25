@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:youtube_app/presentation/login/login_page.dart';
 
 // model
 import 'package:youtube_app/presentation/main/main_model.dart';
 
 // page
 import '../book_list/book_list_page.dart';
+import 'package:youtube_app/presentation/signup/signup_page.dart';
 
 void main() async {
   runApp(MyApp());
@@ -31,12 +33,20 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                   RaisedButton(
-                    child: Text('ボタン'),
+                    child: Text('新規登録'),
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => BookListPage()));
+                              builder: (context) => SignUpPage()));
+                      model.changeSampleText();
+                    },
+                  ),
+                  RaisedButton(
+                    child: Text('ログイン'),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));
                       model.changeSampleText();
                     },
                   )
