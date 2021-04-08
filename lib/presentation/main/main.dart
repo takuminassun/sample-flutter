@@ -6,7 +6,7 @@ import 'package:youtube_app/presentation/login/login_page.dart';
 import 'package:youtube_app/presentation/main/main_model.dart';
 
 // page
-import '../book_list/book_list_page.dart';
+import 'package:youtube_app/presentation/book_list/book_list_page.dart';
 import 'package:youtube_app/presentation/signup/signup_page.dart';
 
 void main() async {
@@ -31,6 +31,16 @@ class MyApp extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 30,
                     ),
+                  ),
+                  RaisedButton(
+                    child: Text('本一覧'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BookListPage()));
+                      model.changeSampleText();
+                    },
                   ),
                   RaisedButton(
                     child: Text('新規登録'),
