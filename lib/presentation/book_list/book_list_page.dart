@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:youtube_app/domain/book.dart';
 import 'package:youtube_app/presentation/add_book/add_book_page.dart';
 
@@ -22,7 +20,8 @@ class BookListPage extends StatelessWidget {
           final listTiles = books
               .map(
                 (book) => ListTile(
-                  title: Text(book.title),
+                  leading: Image.network(book.imageURL),
+                  title: Text(book.title ?? 'default value'),
                   trailing: IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () async {
